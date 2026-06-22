@@ -90,7 +90,7 @@ h2{
 .hero{
     height:100vh;
     background:
-    linear-gradient(rgba(255,255,255,.82),rgba(255,255,255,.82)),
+    
     url("background.jpg");
 
     background-size:cover;
@@ -161,6 +161,9 @@ h2{
     color:#000;
     overflow:hidden;
     position:relative;
+}
+.countdown p{
+    font-size: 28px;
 }
 
 .h3{
@@ -241,6 +244,9 @@ h2{
     background:#ffffff;
     text-align:center;
 }
+.location p{
+    font-size: 28px;
+}
 
 .h2{
     color:#000;
@@ -285,6 +291,8 @@ iframe{
     position:relative;
     overflow:hidden;
 }
+
+
 
 .message-content{
     max-width:850px;
@@ -429,10 +437,28 @@ iframe{
     background:rgba(255,255,255,0.15); /* خفيف جداً */
 }
 
+.music-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    cursor:pointer;
+    font-size:22px;
+    z-index:9999;
+}
   </style>
 </head>
 <body>
-  
+  <button id="musicBtn" class="music-btn">🔊</button>
+
+<audio id="bgMusic" loop autoplay>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
 
   <!-- ================= HERO SECTION ================= -->
 
@@ -440,15 +466,15 @@ iframe{
 
     <div class="hero-content">
 
+              <p>بعض اللقاءات عابرة…</p>
+              <p>وبعضها يصبح حياة</p>
+
       <h1>طه  كمالي و  كارمن سليمان</h1>
 
-      <p>يتشرفان بدعوتكم لحضور حفل زفافهما</p>
-
-      <div class="date">
-الثلاثاء 18 أغسطس 2026
-<br>
-7:30 مساءً
-</div>
+      <p>نتشرف بدعوتكم لحفل زفافنا</p>
+      <p>التاريخ : 18-8-2026</p>
+      <p>الوقت : 7:30 مساء</p>
+      
 
   </section>
 
@@ -467,7 +493,8 @@ iframe{
 
     </div>
 
-    <h2 class="h3">باقي على موعدنا الى ليلية لا تنسى</h2>
+    <p>أيام قليلة تفصلنا
+عن بداية الحكاية</p>
 
     <div class="countdown-container">
 
@@ -499,8 +526,8 @@ iframe{
 
   <section class="location hidden">
 
-    <h2 class="h2">مكان الحفل</h2>
-
+    <p>هنا المكان الذي سنجمع فيه أجمل الناس</p>
+<br>
     <div class="location-text">
       Roche Doree_ Mejdlaya <br>
     </div>
@@ -540,22 +567,14 @@ iframe{
 
 
    <div class="message-content">
- بكل الحب والسعادة <br>
-      يسعدنا حضوركم ومشاركتكم لنا <br>
-      أجمل لحظات العمر
+    <p>الدعوه</p>
+لأن الفرح يُروى بالحضور، ننتظركم معنا .. <br>
+     بوجودكم سيكتمل فرحنا ... <br>
+      وإن كانت محبتكم تُترجم بهدية، فنستقبلها بكل امتنان
 
       <br><br>
 
-      وجودكم بيننا سيجعل هذا اليوم <br>
-      أكثر جمالًا وبهجة وذكرى لا تُنسى
-<br><br>
-  ولمن يرغب بالمباركة،<br> يمكنه إهداء مباركته عبر التحويل على wish money:
-<br>
-رقم التليفون:
-+961 70 567 821
-<br>
-مع خالص الشكر والتقدير لكم، وممتنين لمشاركتكم فرحتنا🤍
-</div>
+Wish money : +961 70 567 821<br>     
 <br><br>
 
   </section>
@@ -617,6 +636,36 @@ iframe{
     });
 
   </script>
+
+  <script>
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+
+let isMuted = localStorage.getItem("musicMuted") === "true";
+
+if(isMuted){
+    music.pause();
+    btn.innerHTML = "🔇";
+}else{
+    music.play();
+    btn.innerHTML = "🔊";
+}
+
+btn.addEventListener("click", ()=>{
+
+    isMuted = !isMuted;
+
+    localStorage.setItem("musicMuted", isMuted);
+
+    if(isMuted){
+        music.pause();
+        btn.innerHTML = "🔇";
+    }else{
+        music.play();
+        btn.innerHTML = "🔊";
+    }
+});
+</script>
 
 </body>
 </html>
