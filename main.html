@@ -539,6 +539,73 @@ iframe{
     color:#000;
 }
 
+.popup{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.35);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.4s;
+
+    z-index:99999;
+}
+
+.popup.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.popup-box{
+    width:320px;
+
+    background:rgba(255,255,255,.85);
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    border-radius:25px;
+
+    padding:30px;
+
+    text-align:center;
+
+    font-family:'Aref Ruqaa', serif;
+}
+
+.popup-box h3{
+    color:#000;
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.popup-box p{
+    color:#000;
+    font-size:20px;
+    margin-bottom:20px;
+}
+
+.popup-box button{
+    padding:10px 25px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#000;
+    color:#fff;
+
+    cursor:pointer;
+
+    font-family:'Aref Ruqaa', serif;
+}
+
   </style>
 </head>
 <body>
@@ -767,11 +834,22 @@ document
 
     e.preventDefault();
 
-    const formData = {
-        name: this.name.value,
-        guests: this.guests.value,
-        status: this.status.value
-    };
+    const name = this.name.value.trim();
+const guests = this.guests.value.trim();
+const status = this.status.value.trim();
+
+if (!name || !guests || !status) {
+
+    alert("يرجى استكمال جميع البيانات أولاً");
+
+    return;
+}
+
+const formData = {
+    name: name,
+    guests: guests,
+    status: status
+};
 
     try{
 
@@ -780,10 +858,11 @@ document
             body:JSON.stringify(formData)
         });
 
-        document.getElementById("responseMsg")
-        .innerHTML = "تم إرسال الرد بنجاح";
+        document
+.getElementById("successPopup")
+.classList.add("show");
 
-        this.reset();
+this.reset();
 
     }catch(error){
 
@@ -794,7 +873,23 @@ document
 
 });
 
-</script>
+function closePopup() {
 
+    document
+    .getElementById("successPopup")
+    .classList.remove("show");
+
+}
+
+</script>
+<div id="successPopup" class="popup">
+
+    <div class="popup-box">
+        <h3>شكراً لك</h3>
+        <p>تم تأكيد الحضور بنجاح</p>
+        <button onclick="closePopup()">إغلاق</button>
+    </div>
+
+</div>
 </body>
 </html>
