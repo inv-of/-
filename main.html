@@ -443,28 +443,11 @@ iframe{
     background:rgba(255,255,255,0.15); /* خفيف جداً */
 }
 
-.music-btn{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    width:55px;
-    height:55px;
-    border:none;
-    border-radius:50%;
-    background:#fff;
-    box-shadow:0 4px 12px rgba(0,0,0,.15);
-    cursor:pointer;
-    font-size:22px;
-    z-index:9999;
-}
+
   </style>
 </head>
 <body>
-  <button id="musicBtn" class="music-btn">🔊</button>
-
-<audio id="bgMusic" loop autoplay>
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
+  
 
   <!-- ================= HERO SECTION ================= -->
 
@@ -643,35 +626,7 @@ Wish money : +961 70 567 821<br>
 
   </script>
 
-  <script>
-const music = document.getElementById("bgMusic");
-const btn = document.getElementById("musicBtn");
-
-let isMuted = localStorage.getItem("musicMuted") === "true";
-
-if(isMuted){
-    music.pause();
-    btn.innerHTML = "🔇";
-}else{
-    music.play();
-    btn.innerHTML = "🔊";
-}
-
-btn.addEventListener("click", ()=>{
-
-    isMuted = !isMuted;
-
-    localStorage.setItem("musicMuted", isMuted);
-
-    if(isMuted){
-        music.pause();
-        btn.innerHTML = "🔇";
-    }else{
-        music.play();
-        btn.innerHTML = "🔊";
-    }
-});
-</script>
+  
 
 </body>
 </html>

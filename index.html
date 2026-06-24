@@ -284,10 +284,67 @@
 
     }
 
+    .container{
+  z-index:5;
+  transition:opacity 1s ease;
+}
+
+.container.hide{
+  opacity:0;
+  pointer-events:none;
+}
+
+.music-btn{
+    position:fixed;
+    top:25px;
+    right:25px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
+    color:#fff;
+    font-size:24px;
+    cursor:pointer;
+    z-index:99999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.music-btn.playing{
+    animation:spin 4s linear infinite;
+}
+
+@keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
 
   </style>
 </head>
 <body>
+
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<iframe
+    id="mainFrame"
+    src="main.html"
+    style="
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:none;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity 1.5s ease;
+    z-index:1;">
+</iframe>
 
   <!-- Floating Icons -->
 
@@ -332,25 +389,56 @@
     </div>
   </div>
 
+  <button id="musicBtn" class="music-btn">
+    🔊
+</button>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
   <!-- Script -->
 
   <script>
 
-    const envelope = document.getElementById("envelope");
+const envelope = document.getElementById("envelope");
+const frame = document.getElementById("mainFrame");
+const music = document.getElementById("bgMusic");
+const container = document.querySelector(".container");
 
-    envelope.addEventListener("click", () => {
+envelope.addEventListener("click", () => {
 
-      envelope.classList.add("open");
+    envelope.classList.add("open");
 
-      setTimeout(() => {
+    music.play();
 
-        window.location.href = "main.html";
+    setTimeout(() => {
 
-      }, 850);
+        container.classList.add("hide");
 
-    });
+        frame.style.visibility = "visible";
+        frame.style.opacity = "1";
 
-  </script>
+    }, 850);
+
+});
+
+const musicBtn = document.getElementById("musicBtn");
+
+/* كتم / تشغيل */
+
+musicBtn.addEventListener("click", () => {
+
+    music.muted = !music.muted;
+
+    if (music.muted) {
+        musicBtn.innerHTML = "🔇";
+    } else {
+        musicBtn.innerHTML = "🔊";
+    }
+
+});
+</script>
 
 </body>
 </html>
